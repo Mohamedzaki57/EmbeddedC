@@ -46,12 +46,17 @@ int main(){
     {
         if(s[i].marks > top[0])
         {
-           top[0]=s[i].marks;
+            top[2]=top[1];
+            top[1]=top[0];
+            top[0]=s[i].marks;
+            
+            
        
         }
-        else if(s[i].marks > top[1] )
+        else if(s[i].marks > top[1]    )
         {
-           top[1]=s[i].marks;
+              top[2]=top[1];
+              top[1]=s[i].marks;
             
         }
         else if(s[i].marks > top[2] )
