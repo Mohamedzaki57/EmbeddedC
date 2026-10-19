@@ -1,4 +1,5 @@
 #include<iostream>
+#include<iostream>
 
 class array{
 
@@ -8,10 +9,18 @@ class array{
       int capacity;
 
     public:
+
+    array(int *ptr1,int size1, int capacity1)
+    {
+        ptr=ptr1;
+        size=size1;
+        capacity =capacity1;
+    }
     
      void display( )
      {
         
+     
         
         for(int i=0 ; i<size ; i++)
         {
@@ -22,7 +31,13 @@ class array{
 
      void bigsize()
      {
-      ptr = new int(2*capacity);
+      int *pts =ptr;
+      capacity *=2;
+      ptr = new int(capacity);
+      for (int i =0; i<size ;i++)
+      {
+        ptr[i]=pts[i];
+      }
      }
      void add(int x)
      { 
@@ -31,26 +46,35 @@ class array{
         bigsize();
        }
 
-      
+      else{
           size++;
-          ptr[size]=x;
-       
+          ptr[size-1]=x;
+      }
      }
 
      void insert(int x , int y)       //y is the index
      {
-       if (y>=size || y<0)
+       if (y>size|| y<0){
           std::cout<<"invalid index\n";
-       if(size=capacity)
+          return;
+       }
+       
+      if(size==capacity)
+      {
          bigsize();
-        
-         size++;
-        for (int i=size-1 ; i>=x ;i--)
+         
+      }
+      size ++;
+     
+        for (int i=size-1 ; i>y;i--)
         {
+         
           ptr[i]=ptr[i-1];
+
         }
 
         ptr[y]=x;
+        
      }
 
      void deletee(int y)
@@ -65,7 +89,7 @@ class array{
         ptr[i]=ptr[i+1];
        }   
         
-       ptr[size-1]=0;
+       size--;
      }
  
      void search(int x)
@@ -75,12 +99,18 @@ class array{
           std::cout<<"invalid index\n ";
           return;
         }
+        int flag=0;
       for (int i=0; i< size ; i++)
       {
         if (ptr[i]==x)
-          std::cout << i << "\n";
+        {
+          std::cout << i+1 << "\n";
+          flag++;
+        }
 
       }
+      if(!flag)
+        std::cout << "not found\n";
      }
 
      void get(int y)
@@ -127,7 +157,7 @@ class array{
      void reverse()
      {
       int x=0;
-      int y=size;
+      int y=size-1;
       int temp;
       while(!(x>=y))
       {
@@ -141,53 +171,72 @@ class array{
 
      void shift(int n)
      {
-      for (int i=0; i<n;i++)
+      for (int i=n; i<size;i++)
       {
-        ptr [i]=ptr[n+i-1];
-        ptr[size -n +i]=0;
+        ptr [i-n]=ptr[i];
+        
+      }
+      for (int i=size-1 ;i>=size-n;i--)
+      {
+        ptr[i]=0;
       }
 
      }
  
-     void rotate()
+     void rotate(int n)
      {
-      int temp;
-        for (int i=0 ; i< size ;i++)
-        {
-          temp =ptr[i];
-          ptr[i]=ptr[size+i-1];
-          ptr[size+i-1]=temp;
-        }
+     
+      int temp[size];
+      for (int i=0;i<size;i++)
+      {
+        temp[i]=ptr[i];
+      }
+        for (int i=n; i<size;i++)
+      {
+        
+        ptr [i-n]=ptr[i];
+        
+      }
+      
+      for (int i=0;i<n;i++)
+      {
+        ptr[(size-n)+i]=temp[i];
+      }
+     
      }
      void merge(array a2)
      {
       while(capacity <= size +a2.size)
+      {
         bigsize();
      
+      }
  
+      
 
       for (int i =0; i<size+a2.size; i++)
       {
         ptr[i+size]=a2.ptr[i];
       }
+      size=size+a2.size;
         
 
      }
 
      int sum()
      {
-      int sum;
+      int sum=0;
       for(int i=0; i<size ; i++)
       {
         sum+=ptr[i];
       }
-      return sum;
+       return sum;
      }
-     int avr()
+     void avr()
      {
       int avr;
        avr=sum()/size;
-       return avr;
+       std::cout<<avr<<"\n";
      }
 
      void replace(int x , int y)
@@ -203,3 +252,60 @@ class array{
        ptr[y]=temp;
      }
 };
+
+int main(){
+    
+    int a1[]={1,2,3,4,5,6};
+    int s=6;
+    int c=10;
+
+    int a2[]={9,9,9};
+    int s2=3;
+    int c2=5l;
+    array aa(a2,s2,c2);
+
+    array a(a1,s,c);
+    a.display();
+    std::cout<<"===========ADD===========\n";
+    a.add(7);
+   a.display();
+ std::cout<<"============INSERT==========\n";
+   a.insert(8 ,3);
+   a.display();
+   std::cout<<"==========DELETE==========\n";
+   a.deletee(4);
+   a.display();
+   std::cout<<"=========search===========\n";
+   a.search(6);
+   a.search(4);
+   std::cout<<"===========GET============\n";
+   a.get(1);
+   a.get(9);
+   std::cout<<"===========SET============\n";
+   a.set(4,5);
+   a.display();
+   std::cout<<"===========MAX============\n";
+   a.max();
+   std::cout<<"===========MIN============\n";
+   a.min();
+   std::cout<<"=========REVERSE==========\n";
+   a.reverse();
+   a.display();
+   std::cout<<"===========SHIFT============\n";
+   a.shift(1);
+   a.display();
+   std::cout<<"===========ROTATE============\n";
+   a.rotate(2);
+   a.display();
+   std::cout<<"============MERGE============\n";
+   a.merge(aa);
+   a.display();
+   std::cout<<"=============SUM=============\n";
+   std::cout<<a.sum()<<"\n";
+   std::cout<<"=============AVR=============\n";
+   a.avr();
+   std::cout<<"===========REPLACE===========\n";
+   a.replace(5,8);
+   a.display();
+
+}
