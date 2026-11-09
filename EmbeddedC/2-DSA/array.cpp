@@ -1,5 +1,5 @@
 #include<iostream>
-#include<iostream>
+
 
 class array{
 
