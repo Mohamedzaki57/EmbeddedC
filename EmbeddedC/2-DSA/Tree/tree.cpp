@@ -81,37 +81,44 @@ int tree::countLeafs()
     return leafcounts;
 }
 
-void tree::priDFStravers(tNode *root) const
+void tree::preorder(tNode *root) const
 {
     if (root == nullptr)
         return;
 
-    std::cout << root->data;
-    priDFStravers(root->left);
-    priDFStravers(root->right);
+    std::cout << root->data<<" ";
+    preorder(root->left);
+    preorder(root->right);
 }
-
-void tree::inDFStravers(tNode *root) const
-{
-    if (root == nullptr)
-        return;
-
-    inDFStravers(root->left);
-
-    std::cout << root->data;
-
-    inDFStravers(root->right);
+void tree::priDFStravers(){
+    preorder(root);
 }
-
-void tree::postDFStravers(tNode *root) const
+void tree::inorder(tNode *root) const
 {
     if (root == nullptr)
         return;
-    postDFStravers(root->left);
 
-    postDFStravers(root->right);
+    inorder(root->left);
 
-    std::cout << root->data;
+    std::cout << root->data<<" ";
+
+    inorder(root->right);
+}
+void tree::inDFStravers(){
+    inorder(root);
+}
+void tree::postorder(tNode *root) const
+{
+    if (root == nullptr)
+        return;
+    postorder(root->left);
+
+    postorder(root->right);
+
+    std::cout << root->data<<" ";
+}
+void tree::postDFStravers(){
+    postorder(root);
 }
 void tree::BFStravers()
 {
@@ -131,7 +138,7 @@ void tree::BFStravers()
 
         if (current->right)
             que.push(current->right);
-       
+
     }
 }
 
@@ -144,18 +151,25 @@ void tree::deletTree()
      tNode* current = que.front();
      delete current;
                que.pop();
-        
+
 
         if (current->left)
             que.push(current->left);
 
         if (current->right)
             que.push(current->right);
-       
+
 
    }
 }
 tree::~tree()
-{ 
+{
     tree::deletTree();
+}
+
+int main(){
+
+    tree t;
+    t.createTree();
+    t.inDFStravers();
 }
