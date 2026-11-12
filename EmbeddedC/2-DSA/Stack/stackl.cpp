@@ -15,10 +15,18 @@ bool stackl::isEmpty()
     else
         return false;
 }
+Node* stackl::createNode(int d)
+{
+
+    Node* newNode =new Node();
+    newNode->next=nullptr;
+    newNode->data=d;
+    return newNode;
+}
+
 void stackl::push(int data)
 {
-    Node *newnode = new Node();
-    newnode->data = data;
+    Node *newnode = createNode(data);
     newnode->next = top;
     top = newnode;
     size++;
@@ -34,15 +42,15 @@ void stackl::pop()
     delete (temp);
     size--;
 }
-int stackl::peak()
+void stackl::peak()
 {
     if (isEmpty())
     {
         std::cout << "empty stack\n";
         return;
     }
-
-    return top->data;
+    std::cout<<top->data<<"\n";
+    return ;
 }
 
 void stackl::display()
@@ -53,10 +61,11 @@ void stackl::display()
         return;
     }
 
-    while (top)
+    Node *temp=top;
+    while (temp->next)
     {
-        std::cout << top->data << "  ";
-        top = top->next;
+        std::cout << temp->data << "  ";
+        temp = temp->next;
     }
     std::cout << " \n";
 }
@@ -80,4 +89,21 @@ void stackl::freeS()
 stackl::~stackl()
 {
     delete top;
+}
+
+int main(){
+
+stackl s;
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
+    s.push(5);
+    s.push(6);
+    s.display();
+    s.peak();
+    s.pop();
+    s.pop();
+    s.peak();
+    s.display();
 }

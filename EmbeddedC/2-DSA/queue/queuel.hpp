@@ -11,8 +11,8 @@ class queuel{
      public:
 
      queuel();
-     Node* createNode();
-     Node* initqueue(int );
+
+     void createQueue(int*, int);
      bool isEmpty();
      void enqueue(int);
      void dequeue();
@@ -23,6 +23,9 @@ class queuel{
        Node* front;
        Node* rear;
        int size;
+
+      Node* createNode(int);
+     Node* initqueue(int );
 
 };
 #endif

@@ -12,14 +12,14 @@ class stackl{
     private:
       Node *top;
       int size;
-      
+     Node* createNode(int d);
 
    public:
       stackl();
 
       void push(int);
       void pop();
-      int peak() ;
+      void peak() ;
       bool isEmpty();
       void mkStack();
       void display() ;

@@ -5,7 +5,7 @@
 class queuea{
 
     private:
-     int *arr;
+    int *arr;
     int size;
     int capacity;
     int front;

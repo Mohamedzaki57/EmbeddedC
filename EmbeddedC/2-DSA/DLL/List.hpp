@@ -16,17 +16,17 @@ class List{
        Node* createNode(int data);
 
     public:
-    
-    
+
+
      List();
-     
-     
+
+
      void createList(int *arr,int n);
      void display() const;
 
      int getSize() const;
      int sum()const;
-     int max() const;
+     void max() const;
      Node* search( int k) const;
 
      void insertAtHead(int data);
@@ -38,6 +38,6 @@ class List{
      void deleteAtPos( int pos);
      void freeLL();
 
-    
+
 };
 #endif
