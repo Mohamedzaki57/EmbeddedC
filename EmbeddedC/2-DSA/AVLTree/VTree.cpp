@@ -2,7 +2,8 @@
 #include <algorithm>
 #include <iostream>
 
-VTree::VTree() : root{nullptr}, size{1} {}
+
+VTree::VTree() : root{nullptr}, size{0} {}
 VNode *VTree::createVNode(int data)
 {
 
@@ -13,6 +14,11 @@ VNode *VTree::createVNode(int data)
     newNode->right = nullptr;
 
     return newNode;
+}
+
+bool VTree::isEmpty(){
+    return size==0;
+
 }
 ///////////insertions////////////
 VNode *VTree::insert_h(VNode *node, int data)
@@ -25,6 +31,7 @@ VNode *VTree::insert_h(VNode *node, int data)
 
     if (node->data > data)
     {
+        stk.push(node);
 
 
         node->left = insert_h(node->left, data);
@@ -32,12 +39,38 @@ VNode *VTree::insert_h(VNode *node, int data)
     }
     else if (node->data < data)
     {
+         stk.push(node);
 
         node->right = insert_h(node->right, data);
     }
+    else {
+        return node;
+    }
 
 
+    VNode* grand =stk.top();
+    grand->hight=getHight(grand);
 
+    if(grand->hight ==2 && getHight(grand->left)>0)
+    {
+        grand=rightRotate(grand);
+
+    }
+    else if(grand->hight ==-2 && getHight(grand->right)<0)
+    {
+       grand= leftRotate(grand);
+
+    }
+    else if(grand->hight ==2 && getHight(grand->left)<0)
+    {
+        grand->left=leftRotate(grand->left);
+        grand= rightRotate(grand);
+    }
+    else if(grand->hight ==-2 && getHight(grand->right)>0)  //R.L
+    {
+        grand->right=rightRotate(grand->right);
+       grand= leftRotate(grand);
+    }
 
     return node;
 }
@@ -104,8 +137,9 @@ VNode *VTree::rightRotate(VNode *A)
     B->right = A;
     A->left = BR;
 
+     B->hight = 1 + getHight(B);
     A->hight = 1 + getHight(A);
-    B->hight = 1 + getHight(B);
+
 
     return B;
 }
@@ -118,8 +152,9 @@ VNode *VTree::leftRotate(VNode *A)
     B->left = A;
     A->right = BL;
 
+     B->hight = 1 + getHight(B);
     A->hight = 1 + getHight(A);
-    B->hight = 1 + getHight(B);
+
 
     return B;
 }
@@ -183,4 +218,17 @@ void VTree::deleteV(int d){
 
       if(!root) return;
     root =delete_h(root,d);
+}
+
+int main(void){
+
+    VTree v;
+
+    v.insertV(50);
+    v.insertV(40);
+    v.insertV(30);
+    v.insertV(20);
+    v.insertV(10);
+    v.display();
+
 }
