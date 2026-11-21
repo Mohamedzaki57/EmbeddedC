@@ -5,7 +5,9 @@ TreeA::TreeA() : size{0}, leafsCount{0}
 {
 }
 
-
+bool TreeA::isEmpty(){
+    return size==0;
+}
 
 int TreeA::getSize()
 {
@@ -65,6 +67,7 @@ int TreeA::getLeft(int i)
 void TreeA::insert(int data)
 {
     vec.push_back(data);
+    size++;
 }
 
 void TreeA::clear()
@@ -80,7 +83,7 @@ void TreeA::clear()
 void TreeA::BFStravers()
 {
 
-    for (int i = 0; i < vec.size(); i++)
+    for (int i = 0; i < size; i++)
     {
         std::cout << vec[i] << " ";
     }
@@ -147,4 +150,24 @@ void TreeA::postDFStravers()
 }
 void TreeA::remove()
 {
+}
+
+ TreeA::~TreeA(){
+    clear();
+}
+
+int main(){
+
+    TreeA t;
+
+    t.insert(10);
+    t.insert(20);
+    t.insert(30);
+    t.insert(40);
+    t.insert(50);
+
+    t.BFStravers();
+    t.inDFStravers();
+    t.priDFStravers();
+
 }
