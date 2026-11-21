@@ -9,6 +9,14 @@
 #include<set>
 #include<map>
 #include<unordered_map>
+  struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode() : val(0), left(nullptr), right(nullptr) {}
+      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+  };
 bool uniqueOccurrences(std::vector<int>& arr);
 int main()
 {
@@ -19,7 +27,59 @@ int main()
 
     std::multimap<int,int> map;
 }
+ void insertsort(std::vector<int> & nums , int k)
+ {
+     nums.push_back(k);
 
+     for(int i=nums.size()-1 ;i>=0 ;i--)
+     {
+        if(nums[i]>k)
+        {
+
+            swap(nums[i],k);
+
+        }
+        else{
+            return;
+        }
+     }
+
+
+
+
+
+ }
+
+ void swap(int & v, int &n)
+ {
+    int temp=v;
+    v=n;
+    n=temp;
+ }
+int getHight(TreeNode *node)
+{
+    if (!node)
+        return 0;
+    TreeNode *temp = node;
+    int hight=0l
+    while (temp->left)
+    {
+       hight++;
+        temp = temp->left;
+    }
+
+    while (temp->right)
+    {
+        hight--;
+        temp = temp->right;
+    }
+
+    return hight;
+}
+    TreeNode* balanceBST(TreeNode* root) {
+
+
+    }
     bool containsNearbyDuplicate(std::vector<int>& nums, int k) {
 
 
