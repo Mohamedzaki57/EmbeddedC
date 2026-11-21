@@ -5,145 +5,146 @@
 #include <iostream>
 #include <stack>
 #include <vector>
-class MyCircularQueue
-{
-
-private:
-    int *arr;
-    int front;
-    int rear;
-    int capcity;
-    int size;
-
-public:
-    MyCircularQueue(int k) : front{-1}, rear{-1}, capcity{k}, size{0}
-    {
-        arr = new int[capcity];
-    }
-
-    bool enQueue(int value)
-    {
-
-        if (isFull())
-            return false;
-
-        if (isEmpty())
-        {
-            rear += 1 % capcity;
-            front = (front + 1) % capcity;
-            arr[front] = value;
-            size++;
-            return true;
-        }
-        else
-        {
-
-            rear = (rear + 1) % capcity;
-            arr[rear] = value;
-            size++;
-            return true;
-        }
-    }
-
-    bool deQueue()
-    {
-        if (isEmpty())
-            return false;
-
-        if (size == 1)
-        {
-            front = -1;
-
-            size--;
-            return true;
-        }
-        else
-        {
-
-            front = (front + 1) % capcity;
-            size--;
-            return true;
-        }
-    }
-
-    int Front()
-    {
-
-        return front;
-    }
-
-    int Rear()
-    {
-
-        return rear + 1;
-    }
-
-    bool isEmpty()
-    {
-        return size == 0;
-    }
-
-    bool isFull()
-    {
-
-        return size == capcity;
-    }
-};
-
-std::vector<int> productExceptSelf(std::vector<int> &nums);
-int maxArea(std::vector<int> &height);
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-ListNode *removeNthFromEnd(ListNode *head, int n);
-ListNode *detectCycle(ListNode *head);
-std::vector<int> maxSlidingWindow(std::vector<int> &nums, int k);
+#include<unordered_set>
+#include<set>
+#include<map>
+#include<unordered_map>
+bool uniqueOccurrences(std::vector<int>& arr);
 int main()
 {
-    std::stack<int> s;
 
-    // std::vector<int> vec = {1,3,1,2,0,5};
+    std::vector<int> ar {1,2,2,1,1,3};
 
-    // std::vector<int> v2 = maxSlidingWindow(vec, 3);
+    std::cout<<uniqueOccurrences(ar);
 
-    // for (int i = 0; i < v2.size(); i++)
-    // {
-    //     std::cout << v2[i] << " ";
-    // }
-    // std::cout << "\n";
-
-    int ar[] = {3, 5, 1, 6, 2, 0, 8, -1, -1, 7, 4};
+    std::multimap<int,int> map;
 }
+
+    bool containsNearbyDuplicate(std::vector<int>& nums, int k) {
+
+
+        std::multimap<int, int> map;
+        int i = 0;
+
+        for (int num : nums) {
+            if (auto old = map.find(num); old != map.end()) {
+
+
+                if (k >= i - (old->second))
+                    return true;
+
+                old->second=i;
+            }
+            map.insert({num, i});
+            i++;
+        }
+
+
+            return false;
+    }
+ bool containsDuplicate(std::vector<int>& nums) {
+
+    std::map<int,int> map;
+
+    for(int num:nums)
+    {
+        map[num]++;
+        if(map[num]>1)return true;
+    }
+
+    for (auto it = map.begin(); it!=map.end();it++)
+    {
+        if(it->second>1) return true;
+    }
+
+    return false;
+    }
+    bool uniqueOccurrences(std::vector<int>& arr) {
+
+        std::map<int,int> map;
+        std::multiset<int> set;
+
+        for(int num:arr)
+        {
+            map[num]++;
+        }
+
+        for (auto it =map.begin();it!=map.end();++it)
+        {
+            set.insert(it->second);
+        }
+
+        for(auto it=set.begin();it!=set.end();it++)
+        {
+             auto next = std::next(it);
+             if(next==set.end())break;
+            if(*it == *next) return false;
+        }
+
+        return true;
+
+
+    }
+
+   std::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string>& strs) {
+
+    }
+  bool isAnagram(std::string s, std::string t) {
+
+    std::multiset<char> setS(s.begin(),s.end());
+    std::multiset<char> setT(t.begin(),t.end());
+
+    return setS==setT;
+
+    }
+    std::vector<int> twoSum(std::vector<int>& nums, int target) {   /// it's true thank you zaki ;d
+
+        std::vector<int> vec;
+
+        std::unordered_map <int,int> mp;
+         int i=0;
+        for(int num:nums)
+        {
+            mp[num]=i;
+            i++;
+        }
+
+       for (int i=0 ; i<nums.size(); i++)
+       {
+        if(auto s =mp.find(9-nums[i]) ; s!=mp.end() && s->second != i)
+        {
+            vec.push_back(i);
+            vec.push_back(s->second);
+            return vec;
+
+        }
+       }
+
+       return vec;
+    }
+
+
+
+
+
+
+/*
+
+
+/*
 int firstMissingPositive(std::vector<int> &nums){
 
+    int size=*std::max_element(nums.begin(),nums.end()) ;
 
-    std::vector<int> v(nums.size(),0);
+    std::vector<int> v(nums);
 
      for(int i=0;i<nums.size();i++)
      {
 
 
+
+
      }
-// std::sort(v.begin(),v.end());
-
-//     for(int i=0;i<v.size();i++)
-//     {
-//         if (v[i]<0) break;
-
-//         if(v[i]!=v[i] && v[i]==v[i]+1) return v[i];
-//     }
 
 
 
@@ -254,7 +255,7 @@ std::vector<int> maxSlidingWindow(std::vector<int> &nums, int k)
     }
     return vec;
 }
-/*    while (r < l)
+    while (r < l)
                 {
                     if (nums[r] > nums[l] && nums[r] > max)
                     {
@@ -271,8 +272,7 @@ std::vector<int> maxSlidingWindow(std::vector<int> &nums, int k)
                         r++;
                         l--;
                     }
-                }*/
-
+                }
 ListNode *detectCycle(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
@@ -347,6 +347,7 @@ ListNode *removeNthFromEnd(ListNode *head, int n)
 
     return pre;
 }
+*/
 
 int maxArea(std::vector<int> &height)
 {

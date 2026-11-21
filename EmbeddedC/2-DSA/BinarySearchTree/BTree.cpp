@@ -183,7 +183,7 @@ void BTree::insert(int data)
 */
 BNood* BTree::predessor(BNood *node){
 
-    if(node->right)
+    while(node->right)
     {
         node =node->right;
     }
