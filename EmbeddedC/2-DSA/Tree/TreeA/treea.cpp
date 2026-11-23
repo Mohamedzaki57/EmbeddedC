@@ -27,7 +27,7 @@ int TreeA::getParant(int i)
         std::cout << "this is the root not have parant\n";
         return -1;
     }
-    if (vec.at((i - 1) / 2))
+    if (((i - 1) / 2) >= 0 && ((i - 1) / 2) <vec.size() )
         return vec.at((i - 1) / 2);
 
     std::cout << "this element not found\n";
@@ -42,7 +42,7 @@ int TreeA::getRight(int i)
         return -1;
     }
 
-    if (vec.at((2 * i) + 2))
+    if (((2 * i) + 2)<vec.size() && ((2 * i) + 2)>=0 )
         return vec.at((2 * i) + 2);
 
     std::cout << "this element have no right\n";
@@ -57,7 +57,7 @@ int TreeA::getLeft(int i)
         return -1;
     }
 
-    if (vec.at((2 * i) + 1))
+    if (((2 * i) + 1)<vec.size() && ((2 * i) + 1)>=0 )
         return vec.at((2 * i) + 1);
 
     std::cout << "this element have no left\n";
@@ -78,12 +78,13 @@ void TreeA::clear()
         return;
     }
     vec.clear();
+    size==0;
 }
 
 void TreeA::BFStravers()
 {
 
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < vec.size(); i++)
     {
         std::cout << vec[i] << " ";
     }
@@ -91,7 +92,7 @@ void TreeA::BFStravers()
 }
 void TreeA::inorder(int i)
 {
-    if (!(vec.at(i)))
+    if (i<0 || i>=vec.size())
         return;
 
     inorder((2 * i) + 1);
@@ -110,7 +111,7 @@ void TreeA::inDFStravers()
 }
 void TreeA::preorder(int i)
 {
-    if (!(vec.at(i)))
+    if (i<0 || i>=vec.size())
         return;
 
     std::cout << vec[i];
@@ -131,7 +132,7 @@ void TreeA::priDFStravers()
 void TreeA::postorder(int i)
 {
 
-    if (!(vec.at(i)))
+    if (i<0 || i>=vec.size())
         return;
 
     postorder((2 * i) + 2);
