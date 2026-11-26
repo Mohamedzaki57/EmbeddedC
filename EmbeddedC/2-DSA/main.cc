@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+/*
 struct TreeNode
 {
     int val;
@@ -19,6 +20,7 @@ struct TreeNode
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 bool uniqueOccurrences(std::vector<int> &arr);
+
 class MyQueue
 {
 private:
@@ -38,10 +40,7 @@ public:
 
     int pop()
     {
-        while (!s1.empty())
-        {
-            s2.push()
-        }
+
     }
 
     int peek()
@@ -51,16 +50,61 @@ public:
     bool empty()
     {
     }
-} int main()
+};
+*/
+std::vector<int> nextGreaterElement(std::vector<int>& nums1, std::vector<int>& nums2);
+
+int main()
 {
 
-    std::vector<int> ar{1, 2, 2, 1, 1, 3};
+    std::vector<int> nums1{4,1,2};
+    std::vector<int> nums2{1,3,4,2};
 
-    std::cout << uniqueOccurrences(ar);
 
-    std::multimap<int, int> map;
+     nextGreaterElement(nums1 , nums2);
+
+
+    for(int i=0 ; i<nums1.size() ; i++)
+    {
+        std::cout << nums1[i]<< " ";
+    }
+    std::cout<< std::endl;
 }
 
+    std::vector<int> nextGreaterElement(std::vector<int>& nums1, std::vector<int>& nums2) {
+
+        std::vector<int> freq(*std::max_element(nums2.begin(),nums2.end())+1 );
+
+        for(int i=0 ; i< nums2.size(); i++)
+        {
+            freq[nums2[i]]=i;
+        }
+
+        for(int i=0 ; i<nums1.size() ; i++)
+        {
+            int cur=nums1[i];
+            for (int j= freq[nums1[i]] ; j< nums2.size() ;j++)
+            {
+                if(nums2[j] > nums1[i])
+                {
+                    nums1[i]= nums2[j];
+                    break;
+                }
+
+            }
+
+            if(cur==nums1[i])
+            {
+                nums1[i]=-1;
+            }
+        }
+
+        return nums1;
+
+
+    }
+
+/*
 int findKthLargest(std::vector<int> &nums, int k)
 {
 
@@ -115,7 +159,7 @@ void sortColors(std::vector<int> &nums)
 
         // }
 
-        nums.swap(vec);
+        // nums.swap(vec);
     }
     void insertsort(std::vector<int> & nums, int k)
     {
@@ -126,7 +170,7 @@ void sortColors(std::vector<int> &nums)
             if (nums[i] > k)
             {
 
-                swap(nums[i], k);
+                // swap(nums[i], k);
             }
             else
             {
@@ -146,7 +190,8 @@ void sortColors(std::vector<int> &nums)
         if (!node)
             return 0;
         TreeNode *temp = node;
-        int hight = 0l while (temp->left)
+        int hight = 0;
+        while (temp->left)
         {
             hight++;
             temp = temp->left;
@@ -489,7 +534,7 @@ void sortColors(std::vector<int> &nums)
 
         return pre;
     }
-    */
+
 
     int maxArea(std::vector<int> & height)
     {
@@ -577,3 +622,4 @@ void sortColors(std::vector<int> &nums)
         }
         return vec;
     }
+*/

@@ -2,6 +2,7 @@
 #define GRAPH_H
 #include <vector>
 #include<stack>
+#include<queue>
 typedef enum{
     white,
     gray,
@@ -12,12 +13,12 @@ class Graph{
     private:
     std::vector<std::vector<int>> vec;
     std::vector<Color> color;
-    std::stack<int> stk;
-     void dfs_help();
+
+     void dfs(int , std::vector<std::vector<int>> , std::vector<int> , std::vector<int>&);
     public:
 
-    void dfsTraverse(int, std::vector<std::vector<int>> ,std::vector<Color>);
-    void bfsTraverse(std::vector<std::vector<int>>,std::vector<Color>);
+    std::vector<int> dfsTraverse(int, std::vector<std::vector<int>> );
+    std::vector<int> BFSTraverse(std::vector<std::vector<int>>,int);
 
 
 };
